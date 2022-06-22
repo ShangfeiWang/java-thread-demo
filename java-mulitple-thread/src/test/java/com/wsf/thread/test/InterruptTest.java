@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class InterruptTest {
 
+    // 睡眠被打断
     @Test
     public void test1() throws InterruptedException {
         Thread thread = new Thread(() -> {
@@ -28,20 +29,21 @@ public class InterruptTest {
         log.debug("打断标记:{}", thread.isInterrupted());
     }
 
+    // 执行过程中被打断
     @Test
-    public void test2() throws InterruptedException {
+    public void test2() {
         Thread thread = new Thread(() -> {
-            try {
-                while (true) {
+            while (true) {
 
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         });
         thread.start();
 
-        Thread.sleep(1000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         thread.interrupt();
         log.debug("打断标记:{}", thread.isInterrupted());
     }

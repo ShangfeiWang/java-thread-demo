@@ -37,6 +37,7 @@ class TwoPhaseTermination {
                     log.debug("执行监控。。。。");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    // 如果是睡眠中被打断，捕捉异常会将打断标志改为false
                     thread.interrupt();
                 }
             }
